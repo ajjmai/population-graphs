@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Population graph app</title>
+  </head>
+
+  <body>
+    <h1>Population graphs</h1>
+    <p>
+      Enter three letter
+      <a
+        href="https://en.wikipedia.org/wiki/ISO_3166-1#Current_codes"
+        target="_blank"
+        >country code:</a
+      >
+    </p>
+    <input
+      class="textinput"
+      placeholder="country"
+      type="text"
+      id="country"
+      maxlength="3"
+    />
+    <p>
+      <button class="button" id="renderButton">Render population graph</button>
+    </p>
+
+    <script>
+      function logCountryCode() {
+        var countryCode = document.getElementById("country").value;
+        console.log(countryCode);
+      }
+      document
+        .getElementById("renderButton")
+        .addEventListener("click", logCountryCode);
+    </script>
+  </body>
+</html>
