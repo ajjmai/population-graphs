@@ -21,6 +21,11 @@ async function fetchData() {
     if (response.status == 200) {
         var fetchedData = await response.json();
         console.log(fetchedData)
+
+        var data = getValues(fetchedData);
+        var labels = getLabels(fetchedData);
+        var countryName = getCountryName(fetchedData);
+        renderChart(data, labels, countryName);
     }
 }
 
@@ -37,4 +42,22 @@ function getLabels(data) {
 function getCountryName(data) {
     var countryName = data[1][0].country.value;
     return countryName;
+}
+
+function renderChart(data, labels, countryName) {
+    var ctx = document.getElementById('populationChart').getContext('2d');
+
+    // Draw new chart
+    new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: labels,
+            datasets: [{
+                label: 'Population, ' + countryName,
+                data: data,
+                borderColor: 'rgba(75, 192, 192, 1)',
+                backgroundColor: 'rgba(75, 192, 192, 0.2)',
+            }]
+        }
+    });
 }
