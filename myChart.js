@@ -23,3 +23,18 @@ async function fetchData() {
         console.log(fetchedData)
     }
 }
+
+function getValues(data) {
+    var vals = data[1].sort((a, b) => a.date - b.date).map(item => item.value);
+    return vals;
+}
+
+function getLabels(data) {
+    var labels = data[1].sort((a, b) => a.date - b.date).map(item => item.date);
+    return labels;
+}
+
+function getCountryName(data) {
+    var countryName = data[1][0].country.value;
+    return countryName;
+}
