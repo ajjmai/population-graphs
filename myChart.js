@@ -1,7 +1,4 @@
-function logCountryCode() {
-    var countryCode = document.getElementById("country").value;
-    console.log(countryCode);
-}
+var currentChart;
 
 // EventListener for the Button
 document
@@ -47,8 +44,13 @@ function getCountryName(data) {
 function renderChart(data, labels, countryName) {
     var ctx = document.getElementById('populationChart').getContext('2d');
 
+    // Clear the previous chart if there is one
+    if (currentChart) {
+        currentChart.destroy();
+    }
+
     // Draw new chart
-    new Chart(ctx, {
+    currentChart = new Chart(ctx, {
         type: 'line',
         data: {
             labels: labels,
