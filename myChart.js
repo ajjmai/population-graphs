@@ -3,13 +3,7 @@ var fetchedPopulationData;
 var fetchedCountryData;
 var chartType = 'line';
 
-// EventListener for the Button
-document
-    .getElementById("renderButton")
-    .addEventListener("click", fetchData);
-
-document.getElementById("graphTypeButton").addEventListener("click", changeChartType);
-
+// Fetch dropdown menu content
 window.onload = async function fetchDropdownContent() {
     var url = "https://api.worldbank.org/v2/country?format=json&per_page=400";
     var response = await fetch(url);
@@ -52,13 +46,18 @@ function addDropdownOptions(countryList) {
 
 }
 
+// Fetch data
+document
+    .getElementById("renderButton")
+    .addEventListener("click", fetchData);
+
 function fetchData() {
     var countryCode = document.getElementById("countryCodeDropdown").value;
     fetchPopulationData(countryCode);
     fetchCountryData(countryCode);
 }
 
-// fetch data from the World Bank API
+// Fetch population data from the World Bank API
 async function fetchPopulationData(countryCode) {
     const indicatorCode = "SP.POP.TOTL";
     const baseUrl = "https://api.worldbank.org/v2/country/";
@@ -74,6 +73,84 @@ async function fetchPopulationData(countryCode) {
     }
 }
 
+// Render population chart
+function renderChart(data, labels) {
+    var ctx = document.getElementById('populationChart').getContext('2d');
+
+    // Clear the previous chart if there is one
+    if (currentChart) {
+        currentChart.destroy();
+    }
+
+    // Draw new chart
+    currentChart = new Chart(ctx, {
+        type: chartType,
+        data: {
+            labels: labels,
+            datasets: [{
+                label: 'Population',
+                data: data,
+                borderColor: 'rgba(75, 192, 192, 1)',
+                backgroundColor: 'rgba(75, 192, 192, 0.2)',
+            }]
+        },
+        options: {
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: true
+                    }
+                }]
+            },
+            animation: {
+                duration: 5000
+            }
+        }
+    });
+}
+
+// Fetch country info
+async function fetchCountryData(countryCode) {
+    const baseUrl = "https://restcountries.eu/rest/v2/alpha/";
+    const url = baseUrl + countryCode;
+    console.log("Fetching data from URL: " + url);
+
+    var response = await fetch(url);
+
+    if (response.status == 200) {
+        fetchedCountryData = await response.json();
+        console.log(fetchedCountryData)
+        renderCountryData(getCountryArea(fetchedCountryData), getCountryCapital(fetchedCountryData), getCountryFlag(fetchedCountryData), getCountryName(fetchedCountryData), getCountryIndicator(fetchedCountryData), getCountryRegion(fetchedCountryData));
+        document.getElementById("graphTypeButton").style.display = "block";
+    }
+}
+
+// Render country info
+function renderCountryData(area, capital, flag, name, indicator, region) {
+
+    document.getElementById('countryName').textContent = name + " (" + indicator + ")";
+    document.getElementById('region').textContent = "Region: " + region;
+    document.getElementById('capital').textContent = "Capital: " + capital;
+    document.getElementById('area').textContent = "Area: " + area + " m2";
+
+    var img = document.createElement("img");
+    img.src = flag;
+    img.id = "flag";
+    img.alt = 'Country flag';
+
+    clearFlagImgContent();
+
+    document.getElementById('flagContainer').appendChild(img);
+}
+
+// Clear flag img content
+function clearFlagImgContent() {
+    if (document.getElementById('flagContainer').firstChild !== null) {
+        document.getElementById('flagContainer').firstChild.remove();
+    }
+}
+
+// Helper getter functions
 function getValues(data) {
     var vals = data[1].sort((a, b) => a.date - b.date).map(item => item.value);
     return vals;
@@ -114,83 +191,22 @@ function getCountryFlag(data) {
     return flag;
 }
 
-function renderChart(data, labels) {
-    var ctx = document.getElementById('populationChart').getContext('2d');
-
-    // Clear the previous chart if there is one
-    if (currentChart) {
-        currentChart.destroy();
-    }
-
-    // Draw new chart
-    currentChart = new Chart(ctx, {
-        type: chartType,
-        data: {
-            labels: labels,
-            datasets: [{
-                label: 'Population',
-                data: data,
-                borderColor: 'rgba(75, 192, 192, 1)',
-                backgroundColor: 'rgba(75, 192, 192, 0.2)',
-            }]
-        },
-        options: {
-            scales: {
-                yAxes: [{
-                    ticks: {
-                        beginAtZero: true
-                    }
-                }]
-            },
-            animation: {
-                duration: 5000
-            }
-        }
-    });
-}
+// Change chart type
+document.getElementById("graphTypeButton").addEventListener("click", changeChartType);
 
 function changeChartType() {
     if (chartType === "line") {
         chartType = "bar";
         renderChart(getValues(fetchedPopulationData), getLabels(fetchedPopulationData), getCountryName(fetchedPopulationData), getCountryIndicator(fetchedPopulationData));
-        document.getElementById("graphTypeButton").textContent = "Show line chart";
+        setGraphTypeButtonText("Show line chart");
     } else {
         chartType = "line";
         renderChart(getValues(fetchedPopulationData), getLabels(fetchedPopulationData), getCountryName(fetchedPopulationData), getCountryIndicator(fetchedPopulationData));
-        document.getElementById("graphTypeButton").textContent = "Show bar chart";
+        setGraphTypeButtonText("Show bar chart");
     }
 }
 
-async function fetchCountryData(countryCode) {
-    const baseUrl = "https://restcountries.eu/rest/v2/alpha/";
-    const url = baseUrl + countryCode;
-    console.log("Fetching data from URL: " + url);
+function setGraphTypeButtonText(text) {
+    document.getElementById("graphTypeButton").textContent = text;
 
-    var response = await fetch(url);
-
-    if (response.status == 200) {
-        fetchedCountryData = await response.json();
-        console.log(fetchedCountryData)
-        renderCountryData(getCountryArea(fetchedCountryData), getCountryCapital(fetchedCountryData), getCountryFlag(fetchedCountryData), getCountryName(fetchedCountryData), getCountryIndicator(fetchedCountryData), getCountryRegion(fetchedCountryData));
-        document.getElementById("graphTypeButton").style.display = "block";
-    }
-}
-
-function renderCountryData(area, capital, flag, name, indicator, region) {
-
-    document.getElementById('countryName').textContent = name + " (" + indicator + ")";
-    document.getElementById('region').textContent = "Region: " + region;
-    document.getElementById('capital').textContent = "Capital: " + capital;
-    document.getElementById('area').textContent = "Area: " + area + " m2";
-
-    var img = document.createElement("img");
-    img.src = flag;
-    img.id = "flag";
-    img.alt = 'Country flag';
-
-    if (document.getElementById('flagContainer').firstChild !== null) {
-        document.getElementById('flagContainer').firstChild.remove();
-    }
-
-    document.getElementById('flagContainer').appendChild(img);
 }
