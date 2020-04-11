@@ -1,9 +1,13 @@
 var currentChart;
+var fetchedData;
+var chartType = 'line';
 
 // EventListener for the Button
 document
     .getElementById("renderButton")
     .addEventListener("click", fetchData);
+
+document.getElementById("graphTypeButton").addEventListener("click", changeChartType);
 
 // fetch data from the World Bank API
 async function fetchData() {
@@ -16,13 +20,9 @@ async function fetchData() {
     var response = await fetch(url);
 
     if (response.status == 200) {
-        var fetchedData = await response.json();
+        fetchedData = await response.json();
         console.log(fetchedData)
-
-        var data = getValues(fetchedData);
-        var labels = getLabels(fetchedData);
-        var countryName = getCountryName(fetchedData);
-        renderChart(data, labels, countryName);
+        renderChart(getValues(fetchedData), getLabels(fetchedData), getCountryName(fetchedData));
     }
 }
 
@@ -51,7 +51,7 @@ function renderChart(data, labels, countryName) {
 
     // Draw new chart
     currentChart = new Chart(ctx, {
-        type: 'line',
+        type: chartType,
         data: {
             labels: labels,
             datasets: [{
@@ -74,4 +74,16 @@ function renderChart(data, labels, countryName) {
             }
         }
     });
+}
+
+function changeChartType() {
+    if (chartType === "line") {
+        chartType = "bar";
+        renderChart(getValues(fetchedData), getLabels(fetchedData), getCountryName(fetchedData));
+        document.getElementById("graphTypeButton").textContent = "Show line chart";
+    } else {
+        chartType = "line";
+        renderChart(getValues(fetchedData), getLabels(fetchedData), getCountryName(fetchedData));
+        document.getElementById("graphTypeButton").textContent = "Show bar chart";
+    }
 }
