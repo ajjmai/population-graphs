@@ -72,11 +72,8 @@ function getCountryFlag(data) {
     return flag;
 }
 
-function renderChart(data, labels, countryName, countryIndicator) {
+function renderChart(data, labels) {
     var ctx = document.getElementById('populationChart').getContext('2d');
-
-    // document.getElementById("countryTitle").textContent = countryName + " (" + countryIndicator + ")";
-
 
     // Clear the previous chart if there is one
     if (currentChart) {
@@ -104,7 +101,7 @@ function renderChart(data, labels, countryName, countryIndicator) {
                 }]
             },
             animation: {
-                duration: 10000
+                duration: 5000
             }
         }
     });
@@ -132,8 +129,8 @@ async function fetchCountryData(countryCode) {
     if (response.status == 200) {
         fetchedCountryData = await response.json();
         console.log(fetchedCountryData)
-        getCountryArea(fetchedCountryData);
         renderCountryData(getCountryArea(fetchedCountryData), getCountryCapital(fetchedCountryData), getCountryFlag(fetchedCountryData), getCountryName(fetchedCountryData), getCountryIndicator(fetchedCountryData), getCountryRegion(fetchedCountryData));
+        document.getElementById("graphTypeButton").style.display = "block";
     }
 }
 

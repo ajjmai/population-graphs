@@ -3,16 +3,66 @@
 }
 
 .container {
-    width: 75vw;
+    max-width: 75vw;
+    margin: auto;
+    padding-bottom: 70px;
+    text-align: center;
+}
+
+.buttonContainer {
+    text-align: center;
 }
 
 .button {
     margin-top: 1em;
 }
 
+.countryInfoContainer {
+    text-align: center;
+    display: flex;
+}
+
+#countryName,
+#region,
+#capital,
+#area {
+    margin: 0;
+}
+
+.flagContainer {
+    text-align: right;
+    flex: 50%;
+    padding: 5px;
+}
+
+.countryInfo {
+    text-align: left;
+    flex: 50%;
+    padding: 5px;
+}
+
 #flag {
     max-width: 100px;
     height: auto;
-    margin-top: 1em;
-    margin-bottom: 1em;
+    border: 1px solid #ddd;
+}
+
+#countryName {
+    font-weight: bold;
+}
+
+footer {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    background-color: black;
+    color: white;
+    font-size: small;
+    text-align: center;
+}
+
+#graphTypeButton {
+    display: none;
+    margin: auto;
 }
