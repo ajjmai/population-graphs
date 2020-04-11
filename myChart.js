@@ -22,7 +22,7 @@ async function fetchData() {
     if (response.status == 200) {
         fetchedData = await response.json();
         console.log(fetchedData)
-        renderChart(getValues(fetchedData), getLabels(fetchedData), getCountryName(fetchedData));
+        renderChart(getValues(fetchedData), getLabels(fetchedData), getCountryName(fetchedData), getCountryIndicator(fetchedData));
     }
 }
 
@@ -41,8 +41,16 @@ function getCountryName(data) {
     return countryName;
 }
 
-function renderChart(data, labels, countryName) {
+function getCountryIndicator(data) {
+    var indicator = data[1][0].countryiso3code;
+    return indicator;
+}
+
+function renderChart(data, labels, countryName, countryIndicator) {
     var ctx = document.getElementById('populationChart').getContext('2d');
+
+    document.getElementById("countryTitle").textContent = countryName + " (" + countryIndicator + ")";
+
 
     // Clear the previous chart if there is one
     if (currentChart) {
@@ -79,11 +87,11 @@ function renderChart(data, labels, countryName) {
 function changeChartType() {
     if (chartType === "line") {
         chartType = "bar";
-        renderChart(getValues(fetchedData), getLabels(fetchedData), getCountryName(fetchedData));
+        renderChart(getValues(fetchedData), getLabels(fetchedData), getCountryName(fetchedData), getCountryIndicator(fetchedData));
         document.getElementById("graphTypeButton").textContent = "Show line chart";
     } else {
         chartType = "line";
-        renderChart(getValues(fetchedData), getLabels(fetchedData), getCountryName(fetchedData));
+        renderChart(getValues(fetchedData), getLabels(fetchedData), getCountryName(fetchedData), getCountryIndicator(fetchedData));
         document.getElementById("graphTypeButton").textContent = "Show bar chart";
     }
 }
