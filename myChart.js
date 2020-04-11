@@ -10,7 +10,7 @@ async function fetchData() {
     var countryCode = document.getElementById("country").value;
     const indicatorCode = "SP.POP.TOTL";
     const baseUrl = "https://api.worldbank.org/v2/country/";
-    const url = baseUrl + countryCode + /indicator/ + indicatorCode + "?format=json";
+    const url = baseUrl + countryCode + /indicator/ + indicatorCode + "?format=json" + "&per_page=60";
     console.log("Fetching data from URL: " + url);
 
     var response = await fetch(url);
