@@ -41,13 +41,27 @@
         </button>
       </p>
 
+      <div>
+        <div id="flagContainer"></div>
+        <div id="countryInfoContainer">
+          <p id="countryName"></p>
+          <p id="region"></p>
+          <p id="capital"></p>
+          <p id="area"></p>
+        </div>
+      </div>
+      <div class="container">
+        <canvas id="populationChart"></canvas>
+      </div>
       <p>
         <button class="button" id="graphTypeButton">Show bar chart</button>
       </p>
-      <div class="container">
-        <h2 id="countryTitle"></h2>
-        <canvas id="populationChart"></canvas>
-      </div>
     </div>
+    <footer>
+      <p>
+        Population data: World Bank (CC BY 4.0) <br />Country flags & metadata:
+        RESTCountries (MPL 2.0)
+      </p>
+    </footer>
   </body>
 </html>
