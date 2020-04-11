@@ -10,8 +10,50 @@ document
 
 document.getElementById("graphTypeButton").addEventListener("click", changeChartType);
 
+window.onload = async function fetchDropdownContent() {
+    var url = "https://api.worldbank.org/v2/country?format=json&per_page=400";
+    var response = await fetch(url);
+    console.log("Fetching data from URL: " + url);
+
+    if (response.status == 200) {
+        var countryData = await response.json();
+        var countryList = countryData[1];
+        countryList = countryList.sort(sortCountryListAlphabetically);
+        addDropdownOptions(countryList);
+    }
+}
+
+function sortCountryListAlphabetically(a, b) {
+    if (a.name < b.name) {
+        return -1;
+    }
+    if (a.name > b.name) {
+        return 1;
+    }
+    return 0;
+}
+
+function addDropdownOptions(countryList) {
+    var dropdown = document.getElementById('countryCodeDropdown');
+
+    var option;
+
+    for (var i = 0; i < countryList.length; i++) {
+        // skip regions etc.
+        if (countryList[i].capitalCity === '') {
+            continue;
+        }
+
+        option = document.createElement("option");
+        option.text = countryList[i].name;
+        option.value = countryList[i].id;
+        dropdown.appendChild(option);
+    }
+
+}
+
 function fetchData() {
-    var countryCode = document.getElementById("country").value;
+    var countryCode = document.getElementById("countryCodeDropdown").value;
     fetchPopulationData(countryCode);
     fetchCountryData(countryCode);
 }
@@ -137,7 +179,7 @@ async function fetchCountryData(countryCode) {
 function renderCountryData(area, capital, flag, name, indicator, region) {
 
     document.getElementById('countryName').textContent = name + " (" + indicator + ")";
-    document.getElementById('region').textContent = region;
+    document.getElementById('region').textContent = "Region: " + region;
     document.getElementById('capital').textContent = "Capital: " + capital;
     document.getElementById('area').textContent = "Area: " + area + " m2";
 

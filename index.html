@@ -28,13 +28,11 @@
           >country code:</a
         >
       </p>
-      <input
-        class="textinput"
-        placeholder="country"
-        type="text"
-        id="country"
-        maxlength="3"
-      />
+
+      <select id="countryCodeDropdown" name="countryCode">
+        <option value="placeholder" disabled selected>Choose country:</option>
+      </select>
+
       <p>
         <button class="button" id="renderButton">
           Render population graph
