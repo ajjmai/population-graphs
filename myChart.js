@@ -68,6 +68,9 @@ function renderChart(data, labels, countryName) {
                         beginAtZero: true
                     }
                 }]
+            },
+            animation: {
+                duration: 10000
             }
         }
     });
