@@ -28,7 +28,7 @@ function sortCountryListAlphabetically(a, b) {
 }
 
 function addDropdownOptions(countryList) {
-    var dropdown = document.getElementById("countryCodeDropdown");
+    var dropdown = $("#countryCodeDropdown");
 
     var option;
 
@@ -41,7 +41,7 @@ function addDropdownOptions(countryList) {
         option = document.createElement("option");
         option.text = countryList[i].name;
         option.value = countryList[i].id;
-        dropdown.appendChild(option);
+        dropdown.append(option);
     }
 
 }
@@ -52,7 +52,10 @@ document
     .addEventListener("click", fetchData);
 
 function fetchData() {
-    var countryCode = document.getElementById("countryCodeDropdown").value;
+    var countryCode = $("#countryCodeDropdown").val();
+    // var genderCode = $("#genderRadioGroup input:checked").val();
+    // var ageCode = $("#ageRadioGroup input:checked").val();
+    // console.log(ageCode);
     fetchPopulationData(countryCode);
     fetchCountryData(countryCode);
 }
@@ -121,20 +124,20 @@ async function fetchCountryData(countryCode) {
         fetchedCountryData = await response.json();
         console.log(fetchedCountryData)
         renderCountryData(getCountryArea(fetchedCountryData), getCountryCapital(fetchedCountryData), getCountryFlag(fetchedCountryData), getCountryName(fetchedCountryData), getCountryIndicator(fetchedCountryData), getCountryRegion(fetchedCountryData));
-        document.getElementById("graphTypeButton").style.display = "block";
+        $("#graphTypeButton").css("display", "block");
     }
 }
 
 // Render country info
 function renderCountryData(area, capital, flag, name, indicator, region) {
 
-    document.getElementById("countryName").textContent = name + " (" + indicator + ")";
-    document.getElementById("region").textContent = "Region: " + region;
-    document.getElementById("capital").textContent = "Capital: " + capital;
-    document.getElementById("area").textContent = "Area: " + area + " m";
-    var square = document.createElement("sup");
-    square.textContent = "2";
-    document.getElementById("area").appendChild(square);
+    $("#countryName").text(name + " (" + indicator + ")");
+    $("#region").text("Region: " + region);
+    $("#capital").text("Capital: " + capital);
+    $("#area").text("Area: " + area + " m");
+
+    var square = $("<sup></sup>").text("2");
+    $("#area").append(square);
 
     var img = document.createElement("img");
     img.src = flag;
@@ -143,7 +146,7 @@ function renderCountryData(area, capital, flag, name, indicator, region) {
 
     clearFlagImgContent();
 
-    document.getElementById("flagContainer").appendChild(img);
+    $("#flagContainer").append(img);
 }
 
 // Clear flag img content
@@ -210,6 +213,6 @@ function changeChartType() {
 }
 
 function setGraphTypeButtonText(text) {
-    document.getElementById("graphTypeButton").textContent = text;
+    $("#graphTypeButton").text(text);
 
 }
