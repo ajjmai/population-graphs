@@ -1,20 +1,30 @@
-.content {
-    text-align: center;
+:root {
+    --main-color: rgb(16, 173, 173);
 }
 
-.container {
+
+.graph-container {
     max-width: 75vw;
     margin: auto;
-    padding-bottom: 70px;
+    padding-bottom: 100px;
     text-align: center;
 }
 
-.buttonContainer {
-    text-align: center;
-}
-
-.button {
+.btn {
     margin-top: 1em;
+}
+
+.btn-info {
+    background-color: var(--main-color);
+}
+
+.btn-outline-info {
+    color: var(--main-color);
+    border-color: var(--main-color);
+}
+
+.btn-outline-info:hover {
+    background-color: var(--main-color);
 }
 
 .countryInfoContainer {
@@ -33,6 +43,7 @@
     text-align: right;
     flex: 50%;
     padding: 5px;
+    margin-top: 1em;
 }
 
 .countryInfo {
@@ -56,7 +67,7 @@ footer {
     left: 0;
     bottom: 0;
     width: 100%;
-    background-color: black;
+    background-color: var(--main-color);
     color: white;
     font-size: small;
     text-align: center;
@@ -65,4 +76,9 @@ footer {
 #graphTypeButton {
     display: none;
     margin: auto;
+}
+
+.jumbotron {
+    background-color: var(--main-color);
+    color: white;
 }

@@ -1,7 +1,7 @@
 var currentChart;
 var fetchedPopulationData;
 var fetchedCountryData;
-var chartType = 'line';
+var chartType = "line";
 
 // Fetch dropdown menu content
 window.onload = async function fetchDropdownContent() {
@@ -28,13 +28,13 @@ function sortCountryListAlphabetically(a, b) {
 }
 
 function addDropdownOptions(countryList) {
-    var dropdown = document.getElementById('countryCodeDropdown');
+    var dropdown = document.getElementById("countryCodeDropdown");
 
     var option;
 
     for (var i = 0; i < countryList.length; i++) {
         // skip regions etc.
-        if (countryList[i].capitalCity === '') {
+        if (countryList[i].capitalCity === "") {
             continue;
         }
 
@@ -75,7 +75,7 @@ async function fetchPopulationData(countryCode) {
 
 // Render population chart
 function renderChart(data, labels) {
-    var ctx = document.getElementById('populationChart').getContext('2d');
+    var ctx = document.getElementById("populationChart").getContext("2d");
 
     // Clear the previous chart if there is one
     if (currentChart) {
@@ -88,10 +88,10 @@ function renderChart(data, labels) {
         data: {
             labels: labels,
             datasets: [{
-                label: 'Population',
+                label: "Population",
                 data: data,
-                borderColor: 'rgba(75, 192, 192, 1)',
-                backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                borderColor: "rgba(75, 192, 192, 1)",
+                backgroundColor: "rgba(75, 192, 192, 0.2)",
             }]
         },
         options: {
@@ -128,28 +128,28 @@ async function fetchCountryData(countryCode) {
 // Render country info
 function renderCountryData(area, capital, flag, name, indicator, region) {
 
-    document.getElementById('countryName').textContent = name + " (" + indicator + ")";
-    document.getElementById('region').textContent = "Region: " + region;
-    document.getElementById('capital').textContent = "Capital: " + capital;
-    document.getElementById('area').textContent = "Area: " + area + " m";
+    document.getElementById("countryName").textContent = name + " (" + indicator + ")";
+    document.getElementById("region").textContent = "Region: " + region;
+    document.getElementById("capital").textContent = "Capital: " + capital;
+    document.getElementById("area").textContent = "Area: " + area + " m";
     var square = document.createElement("sup");
     square.textContent = "2";
-    document.getElementById('area').appendChild(square);
+    document.getElementById("area").appendChild(square);
 
     var img = document.createElement("img");
     img.src = flag;
     img.id = "flag";
-    img.alt = 'Country flag';
+    img.alt = "Country flag";
 
     clearFlagImgContent();
 
-    document.getElementById('flagContainer').appendChild(img);
+    document.getElementById("flagContainer").appendChild(img);
 }
 
 // Clear flag img content
 function clearFlagImgContent() {
-    if (document.getElementById('flagContainer').firstChild !== null) {
-        document.getElementById('flagContainer').firstChild.remove();
+    if (document.getElementById("flagContainer").firstChild !== null) {
+        document.getElementById("flagContainer").firstChild.remove();
     }
 }
 
