@@ -80,20 +80,34 @@
           <p id="area"></p>
         </div>
       </div>
-      <div class="container">
+      <div class="graph-container container text-center">
         <canvas id="populationChart"></canvas>
-        <div class="buttonContainer">
-          <button class="button" id="graphTypeButton">
+        <div class="buttonContainer text-center">
+          <button
+            type="button"
+            class="btn btn-outline-info"
+            id="graphTypeButton"
+          >
             Show bar chart
           </button>
         </div>
       </div>
     </div>
-    <footer>
-      <p>
-        Population data: World Bank (CC BY 4.0) <br />Country flags & metadata:
-        RESTCountries (MPL 2.0)
-      </p>
+    <footer class="footer mt-auto py-3">
+      <div class="container">
+        <p>
+          Made by @ajjmai
+        </p>
+        <p>
+          <a id="github-link" href="https://github.com/ajjmai" target="_blank">
+            <i class="fa fa-github" style="font-size: 36px;"></i>
+          </a>
+        </p>
+        <p>
+          Population data: World Bank (CC BY 4.0)<br />
+          Country flags & metadata: RESTCountries (MPL 2.0)
+        </p>
+      </div>
     </footer>
   </body>
 </html>
