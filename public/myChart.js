@@ -2,6 +2,16 @@ var currentChart;
 var fetchedPopulationData;
 var fetchedCountryData;
 var chartType = "line";
+var gender = "";
+var age = "";
+
+document
+    .getElementById("clearRadioButton")
+    .addEventListener("click", clearSelection);
+
+function clearSelection() {
+    $(".form-check-input").prop('checked', false);
+}
 
 // Fetch dropdown menu content
 window.onload = async function fetchDropdownContent() {
