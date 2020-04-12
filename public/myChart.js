@@ -4,6 +4,7 @@ var fetchedCountryData;
 var chartType = "line";
 var gender = "";
 var age = "";
+var label;
 
 document
     .getElementById("clearRadioButton")
@@ -11,6 +12,8 @@ document
 
 function clearSelection() {
     $(".form-check-input").prop('checked', false);
+    $("#collapseForm").collapse("hide");
+
 }
 
 // Fetch dropdown menu content
@@ -53,7 +56,6 @@ function addDropdownOptions(countryList) {
         option.value = countryList[i].id;
         dropdown.append(option);
     }
-
 }
 
 // Fetch data
@@ -63,18 +65,39 @@ document
 
 function fetchData() {
     var countryCode = $("#countryCodeDropdown").val();
-    // var genderCode = $("#genderRadioGroup input:checked").val();
-    // var ageCode = $("#ageRadioGroup input:checked").val();
-    // console.log(ageCode);
+    setGenderCode();
+    setAgeCode();
     fetchPopulationData(countryCode);
     fetchCountryData(countryCode);
 }
 
+function setGenderCode() {
+    if ($("#genderRadioGroup input:checked").val()) {
+        gender = $("#genderRadioGroup input:checked").val();
+    }
+}
+
+function setAgeCode() {
+    if ($("#ageRadioGroup input:checked").val()) {
+        age = $("#ageRadioGroup input:checked").val();
+    }
+}
+
+function clearGenderAndAge() {
+    gender = "";
+    age = "";
+}
+
 // Fetch population data from the World Bank API
 async function fetchPopulationData(countryCode) {
-    const indicatorCode = "SP.POP.TOTL";
+    const indicatorCode = "SP.POP.";
+    var dataSetType;
+    if (gender !== "" && age !== "")
+        dataSetType = age + "." + gender + ".IN";
+    else
+        dataSetType = "TOTL"
     const baseUrl = "https://api.worldbank.org/v2/country/";
-    const url = baseUrl + countryCode + /indicator/ + indicatorCode + "?format=json" + "&per_page=60";
+    const url = baseUrl + countryCode + /indicator/ + indicatorCode + dataSetType + "?format=json" + "&per_page=60";
     console.log("Fetching data from URL: " + url);
 
     var response = await fetch(url);
@@ -82,8 +105,18 @@ async function fetchPopulationData(countryCode) {
     if (response.status == 200) {
         fetchedPopulationData = await response.json();
         console.log(fetchedPopulationData)
+        setLabel();
         renderChart(getValues(fetchedPopulationData), getLabels(fetchedPopulationData));
+        clearSelection();
     }
+}
+
+function setLabel() {
+    if (gender !== "" && age !== "") {
+        label = "Population: " + $("label[for='inlineRadio" + gender + "']").text() + "s, aged " + $("label[for='inlineRadio" + age + "']").text();
+        clearGenderAndAge();
+    } else
+        label = "Total population"
 }
 
 // Render population chart
@@ -101,7 +134,7 @@ function renderChart(data, labels) {
         data: {
             labels: labels,
             datasets: [{
-                label: "Population",
+                label: label,
                 data: data,
                 borderColor: "rgba(75, 192, 192, 1)",
                 backgroundColor: "rgba(75, 192, 192, 0.2)",
