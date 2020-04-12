@@ -131,7 +131,10 @@ function renderCountryData(area, capital, flag, name, indicator, region) {
     document.getElementById('countryName').textContent = name + " (" + indicator + ")";
     document.getElementById('region').textContent = "Region: " + region;
     document.getElementById('capital').textContent = "Capital: " + capital;
-    document.getElementById('area').textContent = "Area: " + area + " m2";
+    document.getElementById('area').textContent = "Area: " + area + " m";
+    var square = document.createElement("sup");
+    square.textContent = "2";
+    document.getElementById('area').appendChild(square);
 
     var img = document.createElement("img");
     img.src = flag;
