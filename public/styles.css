@@ -90,3 +90,7 @@ footer {
 #github-link:hover {
     color: rgb(17, 66, 66);
 }
+
+#github-link>i {
+    font-size: 24px;
+}
