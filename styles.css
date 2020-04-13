@@ -5,7 +5,7 @@
 .graph-container {
   max-width: 75vw;
   margin: auto;
-  padding-bottom: 200px;
+  padding-bottom: 1em;
   text-align: center;
 }
 
@@ -62,7 +62,7 @@
 }
 
 footer {
-  position: fixed;
+  /* position: fixed; */
   left: 0;
   bottom: 0;
   width: 100%;
