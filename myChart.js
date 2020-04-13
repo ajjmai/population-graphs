@@ -6,14 +6,11 @@ var gender = "";
 var age = "";
 var label;
 
-document
-    .getElementById("clearRadioButton")
-    .addEventListener("click", clearSelection);
+$("#clearRadioButton").click(clearSelection);
 
 function clearSelection() {
     $(".form-check-input").prop('checked', false);
     $("#collapseForm").collapse("hide");
-
 }
 
 // Fetch dropdown menu content
@@ -33,7 +30,6 @@ window.onload = async function fetchDropdownContent() {
                 addDropdownOptions(countryList);
             } else {
                 renderCountryListError("Fetching country list from server failed.");
-
             }
         }
     } catch (error) {
@@ -71,9 +67,7 @@ function addDropdownOptions(countryList) {
 }
 
 // Fetch data
-document
-    .getElementById("renderButton")
-    .addEventListener("click", fetchData);
+$("#renderButton").click(fetchData);
 
 function fetchData() {
     var countryCode = $("#countryCodeDropdown").val();
@@ -229,7 +223,7 @@ function renderCountryData(area, capital, flag, name, indicator, region) {
 
 // Clear flag img content
 function clearFlagImgContent() {
-    if (document.getElementById("flagContainer").firstChild !== null) {
+    if (document.getElementById("flagContainer").firstChild != null) {
         document.getElementById("flagContainer").firstChild.remove();
     }
 }
@@ -276,7 +270,7 @@ function getCountryFlag(data) {
 }
 
 // Change chart type
-document.getElementById("graphTypeButton").addEventListener("click", changeChartType);
+$("#graphTypeButton").click(changeChartType);
 
 function changeChartType() {
     if (chartType === "line") {
