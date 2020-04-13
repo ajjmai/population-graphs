@@ -22,11 +22,23 @@ window.onload = async function fetchDropdownContent() {
     var response = await fetch(url);
     console.log("Fetching data from URL: " + url);
 
-    if (response.status == 200) {
-        var countryData = await response.json();
-        var countryList = countryData[1];
-        countryList = countryList.sort(sortCountryListAlphabetically);
-        addDropdownOptions(countryList);
+    try {
+        if (!response.ok) {
+            throw Error(response.statusText);
+        } else {
+            if (response.status == 200) {
+                var countryData = await response.json();
+                var countryList = countryData[1];
+                countryList = countryList.sort(sortCountryListAlphabetically);
+                addDropdownOptions(countryList);
+            } else {
+                renderCountryListError("Fetching country list from server failed.");
+
+            }
+        }
+    } catch (error) {
+        console.log(error);
+        renderCountryListError("Fetching country list from server failed. ", error);
     }
 }
 
@@ -102,12 +114,24 @@ async function fetchPopulationData(countryCode) {
 
     var response = await fetch(url);
 
-    if (response.status == 200) {
-        fetchedPopulationData = await response.json();
-        console.log(fetchedPopulationData)
-        setLabel();
-        renderChart(getValues(fetchedPopulationData), getLabels(fetchedPopulationData));
-        clearSelection();
+    try {
+        if (!response.ok) {
+            throw Error(response.statusText);
+        } else {
+            if (response.status == 200) {
+                fetchedPopulationData = await response.json();
+                console.log(fetchedPopulationData)
+                setLabel();
+                renderChart(getValues(fetchedPopulationData), getLabels(fetchedPopulationData));
+                clearSelection();
+            } else {
+                renderPopulationDataError("Fetching population data from server failed. ");
+
+            }
+        }
+    } catch (error) {
+        console.log(error);
+        renderPopulationDataError("Fetching population data from server failed.\n You should propably select a country from the list.\n" + error);
     }
 }
 
@@ -163,11 +187,22 @@ async function fetchCountryData(countryCode) {
 
     var response = await fetch(url);
 
-    if (response.status == 200) {
-        fetchedCountryData = await response.json();
-        console.log(fetchedCountryData)
-        renderCountryData(getCountryArea(fetchedCountryData), getCountryCapital(fetchedCountryData), getCountryFlag(fetchedCountryData), getCountryName(fetchedCountryData), getCountryIndicator(fetchedCountryData), getCountryRegion(fetchedCountryData));
-        $("#graphTypeButton").css("display", "block");
+    try {
+        if (!response.ok) {
+            throw Error(response.statusText);
+        } else {
+            if (response.status == 200) {
+                fetchedCountryData = await response.json();
+                console.log(fetchedCountryData)
+                renderCountryData(getCountryArea(fetchedCountryData), getCountryCapital(fetchedCountryData), getCountryFlag(fetchedCountryData), getCountryName(fetchedCountryData), getCountryIndicator(fetchedCountryData), getCountryRegion(fetchedCountryData));
+                $("#graphTypeButton").css("display", "block");
+            } else {
+                renderCountryDataError("Fetching country data from server failed. ");
+            }
+        }
+    } catch (error) {
+        console.log(error);
+        // renderCountryDataError("Fetching country data from server failed. ", error);
     }
 }
 
@@ -257,5 +292,22 @@ function changeChartType() {
 
 function setGraphTypeButtonText(text) {
     $("#graphTypeButton").text(text);
+}
 
+
+// Error messages
+
+function renderPopulationDataError(errorMessage) {
+    $("#errorPopulationData").text(errorMessage);
+    setTimeout(() => $("#errorPopulationData").text(""), 5000);
+}
+
+function renderCountryDataError(errorMessage) {
+    $("#errorCountryData").text(errorMessage);
+    setTimeout(() => $("#errorCountryData").text(""), 5000);
+}
+
+function renderCountryListError(errorMessage) {
+    $("#errorCountryList").text(errorMessage);
+    setTimeout(() => $("#errorCountryList").text(""), 5000);
 }

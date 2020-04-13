@@ -48,6 +48,9 @@
           <label for="countryCodeDropdown">
             Select a country from the list:
           </label>
+          <p>
+            <span class="error" id="errorCountryList"></span>
+          </p>
         </div>
 
         <div class="row justify-content-center">
@@ -146,6 +149,12 @@
         <button type="button" class="btn btn-info" id="renderButton">
           Render population graph
         </button>
+        <p>
+          <span class="error" id="errorPopulationData"></span>
+        </p>
+        <p>
+          <span class="error" id="errorCountryData"></span>
+        </p>
       </div>
 
       <div class="countryInfoContainer">

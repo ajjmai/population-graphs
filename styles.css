@@ -1,96 +1,101 @@
 :root {
-    --main-color: rgb(16, 173, 173);
+  --main-color: rgb(16, 173, 173);
 }
 
-
 .graph-container {
-    max-width: 75vw;
-    margin: auto;
-    padding-bottom: 200px;
-    text-align: center;
+  max-width: 75vw;
+  margin: auto;
+  padding-bottom: 200px;
+  text-align: center;
 }
 
 .btn {
-    margin-top: 1em;
+  margin-top: 1em;
 }
 
 .btn-info {
-    background-color: var(--main-color);
+  background-color: var(--main-color);
 }
 
 .btn-outline-info {
-    color: var(--main-color);
-    border-color: var(--main-color);
+  color: var(--main-color);
+  border-color: var(--main-color);
 }
 
 .btn-outline-info:hover {
-    background-color: var(--main-color);
+  background-color: var(--main-color);
 }
 
 .countryInfoContainer {
-    text-align: center;
-    display: flex;
+  text-align: center;
+  display: flex;
 }
 
 #countryName,
 #region,
 #capital,
 #area {
-    margin: 0;
+  margin: 0;
 }
 
 .flagContainer {
-    text-align: right;
-    flex: 50%;
-    padding: 5px;
-    margin-top: 1em;
+  text-align: right;
+  flex: 50%;
+  padding: 5px;
+  margin-top: 1em;
 }
 
 .countryInfo {
-    text-align: left;
-    flex: 50%;
-    padding: 5px;
+  text-align: left;
+  flex: 50%;
+  padding: 5px;
 }
 
 #flag {
-    max-width: 100px;
-    height: auto;
-    border: 1px solid #ddd;
+  max-width: 100px;
+  height: auto;
+  border: 1px solid #ddd;
 }
 
 #countryName {
-    font-weight: bold;
+  font-weight: bold;
 }
 
 footer {
-    position: fixed;
-    left: 0;
-    bottom: 0;
-    width: 100%;
-    background-color: var(--main-color);
-    color: white;
-    font-size: small;
-    text-align: center;
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  background-color: var(--main-color);
+  color: white;
+  font-size: small;
+  text-align: center;
 }
 
 #graphTypeButton {
-    display: none;
-    margin: auto;
+  display: none;
+  margin: auto;
 }
 
 .jumbotron {
-    background-color: var(--main-color);
-    color: white;
+  background-color: var(--main-color);
+  color: white;
 }
 
 #github-link {
-    color: white;
+  color: white;
 }
 
 #github-link:hover {
-    color: rgb(17, 66, 66);
+  color: rgb(17, 66, 66);
 }
 
-#github-link>i {
-    font-size: 24px;
+#github-link > i {
+  font-size: 24px;
+}
+
+.error {
+  color: rgb(175, 38, 38);
+  font-size: 12px;
+  padding-top: 1em;
 }
