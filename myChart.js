@@ -154,8 +154,8 @@ function renderChart(data, labels) {
             datasets: [{
                 label: label,
                 data: data,
-                borderColor: "rgba(75, 192, 192, 1)",
-                backgroundColor: "rgba(75, 192, 192, 0.2)",
+                borderColor: "rgba(140, 179, 105, 1)",
+                backgroundColor: "rgba(140, 179, 105, 0.3)",
             }]
         },
         options: {

@@ -1,5 +1,6 @@
 :root {
-  --main-color: rgb(16, 173, 173);
+  --main-color: #087F8C;
+  --hover-color: #084C61;
 }
 
 .graph-container {
@@ -17,13 +18,20 @@
   background-color: var(--main-color);
 }
 
+.btn-info:hover {
+  background-color: var(--hover-color);
+  border-color: var(--hover-color);
+}
+
 .btn-outline-info {
   color: var(--main-color);
   border-color: var(--main-color);
 }
 
 .btn-outline-info:hover {
-  background-color: var(--main-color);
+  background-color: var(--hover-color);
+  border-color: var(--hover-color);
+
 }
 
 .countryInfoContainer {
@@ -87,7 +95,8 @@ footer {
 }
 
 #github-link:hover {
-  color: rgb(17, 66, 66);
+  color: var(--hover-color);
+
 }
 
 #github-link > i {
@@ -95,7 +104,7 @@ footer {
 }
 
 .error {
-  color: rgb(175, 38, 38);
+  color: #DB3A34;
   font-size: 12px;
   padding-top: 1em;
 }
