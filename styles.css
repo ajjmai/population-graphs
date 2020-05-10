@@ -3,6 +3,10 @@
   --hover-color: #084C61;
 }
 
+body {
+  margin-bottom: 100px;
+}
+
 .graph-container {
   max-width: 75vw;
   margin: auto;
@@ -70,7 +74,7 @@
 }
 
 footer {
-  /* position: fixed; */
+  position: fixed;
   left: 0;
   bottom: 0;
   width: 100%;
@@ -96,7 +100,6 @@ footer {
 
 #github-link:hover {
   color: var(--hover-color);
-
 }
 
 #github-link > i {
